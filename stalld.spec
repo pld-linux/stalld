@@ -1,14 +1,16 @@
 Summary:	stalld - detect starving threads and boost them
 Summary(pl.UTF-8):	stalld - wykrywanie głodujących wątków i przyspieszanie ich
 Name:		stalld
-Version:	1.3.0
+Version:	1.9.0
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://www.kernel.org/pub/linux/utils/stalld/%{name}-%{version}.tar.xz
-# Source0-md5:	aa0d27112d46c8c4d88595f0de8d935a
+# Source0-md5:	559b94552813c63592d165a608edd3df
+Patch0:		%{name}-throttlectl.patch
 URL:		https://gitlab.com/rt-linux-tools/stalld
 BuildRequires:	rpmbuild(macros) >= 1.644
+BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	systemd-units >= 38
@@ -24,6 +26,7 @@ zagłodzeniu wątków systemu operacyjnego pod Linuksem.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__make} \
@@ -57,6 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README.md
 %attr(755,root,root) %{_bindir}/stalld
+%attr(755,root,root) %{_bindir}/throttlectl
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/stalld
 %{systemdunitdir}/stalld.service
 %{_mandir}/man8/stalld.8*
