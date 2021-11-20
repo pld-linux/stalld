@@ -2,7 +2,7 @@ Summary:	stalld - detect starving threads and boost them
 Summary(pl.UTF-8):	stalld - wykrywanie głodujących wątków i przyspieszanie ich
 Name:		stalld
 Version:	1.9.0
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://www.kernel.org/pub/linux/utils/stalld/%{name}-%{version}.tar.xz
