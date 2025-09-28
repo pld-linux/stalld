@@ -1,19 +1,9 @@
 Adjust shebang for split /usr
-Kill possible /tmp vulnerability on service restart
---- stalld-1.9.0/scripts/throttlectl.sh.orig	2021-02-17 16:10:23.000000000 +0100
-+++ stalld-1.9.0/scripts/throttlectl.sh	2021-02-22 17:58:48.425800258 +0100
+--- stalld-1.20.1/scripts/throttlectl.sh.orig	2025-07-16 14:39:42.000000000 +0200
++++ stalld-1.20.1/scripts/throttlectl.sh	2025-09-28 21:32:10.876568786 +0200
 @@ -1,4 +1,4 @@
 -#!/usr/bin/bash
 +#!/bin/bash
  
+ # SPDX-License-Identifier: GPL-2.0-or-later
  # This script is called to either turn off or turn on RT throttling
- # The 'off' argument causes the current values of the throttling
-@@ -9,7 +9,7 @@
- 
- path=/proc/sys/kernel
- cmd=$1
--savefile=/tmp/rtthrottle
-+savefile=/var/run/rtthrottle
- defperiod=1000000
- defruntime=950000
- case ${cmd} in
