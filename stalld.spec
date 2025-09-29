@@ -1,3 +1,4 @@
+# TODO: finish bpf
 Summary:	stalld - detect starving threads and boost them
 Summary(pl.UTF-8):	stalld - wykrywanie głodujących wątków i przyspieszanie ich
 Name:		stalld
@@ -32,7 +33,8 @@ zagłodzeniu wątków systemu operacyjnego pod Linuksem.
 %{__make} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall -DVERSION=\\\"%{version}\\\"" \
-	LDFLAGS="%{rpmldflags}"
+	LDFLAGS="%{rpmldflags}" \
+	USE_BPF=0
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -42,7 +44,8 @@ install -d $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	UNITDIR=%{systemdunitdir}
+	UNITDIR=%{systemdunitdir} \
+	USE_BPF=0
 
 %clean
 rm -rf $RPM_BUILD_ROOT
