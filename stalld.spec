@@ -1,13 +1,13 @@
-# TODO: finish bpf
+# TODO: finish bpf (x86_64/aarch64 only?)
 Summary:	stalld - detect starving threads and boost them
 Summary(pl.UTF-8):	stalld - wykrywanie głodujących wątków i przyspieszanie ich
 Name:		stalld
-Version:	1.20.1
+Version:	1.26.1
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://www.kernel.org/pub/linux/utils/stalld/%{name}-%{version}.tar.xz
-# Source0-md5:	f16f6462bcbc604b535eafc1a6465783
+# Source0-md5:	14e4291f7afecf690054a61206a4c0ee
 Patch0:		%{name}-throttlectl.patch
 URL:		https://gitlab.com/rt-linux-tools/stalld
 BuildRequires:	rpmbuild(macros) >= 1.644
@@ -29,11 +29,14 @@ zagłodzeniu wątków systemu operacyjnego pod Linuksem.
 %setup -q
 %patch -P0 -p1
 
+%{__rm} bpf/*.o src/*.o
+
 %build
 %{__make} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall -DVERSION=\\\"%{version}\\\"" \
 	LDFLAGS="%{rpmldflags}" \
+	BPFTOOL=/usr/sbin/bpftool \
 	USE_BPF=0
 
 %install
